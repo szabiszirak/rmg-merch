@@ -16,11 +16,11 @@ jobs:
       run:
         working-directory: firebase
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 2
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -48,7 +48,11 @@ jobs:
       - name: Változtak a Firestore-szabályok?
         id: rules
         run: |
-          if git diff --quiet HEAD~1 HEAD -- firestore.rules 2>/dev/null; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+          if git rev-parse -q --verify HEAD~1 >/dev/null && ! git diff --quiet HEAD~1 HEAD -- firestore.rules; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Firestore-szabályok publikálása
         if: steps.rules.outputs.changed == 'true'
