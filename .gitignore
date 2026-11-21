@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.firebase/
+firebase-debug.log
+deploy-log.txt
+*.log
+.env*
+.dev.vars
+firebase/src/storefront.tsx
+firebase/src/admin.tsx
+firebase/src/merch.css
+firebase/src/redesign.css
+firebase/src/typography.css

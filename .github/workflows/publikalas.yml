@@ -1,0 +1,60 @@
+name: Publikálás Firebase-re
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: firebase-publikalas
+  cancel-in-progress: false
+
+jobs:
+  publikalas:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: firebase
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: firebase/package-lock.json
+
+      - name: Függőségek telepítése
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Típusellenőrzés
+        run: npm run check
+
+      - name: Hosting publikálása
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RMGMERCH_23073 }}
+          projectId: rmgmerch-23073
+          channelId: live
+          entryPoint: firebase
+          firebaseToolsVersion: 14.26.0
+
+      - name: Változtak a Firestore-szabályok?
+        id: rules
+        run: |
+          if git diff --quiet HEAD~1 HEAD -- firestore.rules 2>/dev/null; then echo "changed=false" >> "$GITHUB_OUTPUT"; else echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Firestore-szabályok publikálása
+        if: steps.rules.outputs.changed == 'true'
+        env:
+          SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RMGMERCH_23073 }}
+        run: |
+          printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
+          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" npx --yes firebase-tools@14.26.0 deploy --only firestore:rules --project rmgmerch-23073 --non-interactive
+          rm -f "$RUNNER_TEMP/sa.json"

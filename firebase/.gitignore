@@ -1,0 +1,9 @@
+/node_modules/
+/dist/
+/src/storefront.tsx
+/src/admin.tsx
+/src/merch.css
+/src/redesign.css
+/src/typography.css
+/.firebase/
+/firebase-debug.log

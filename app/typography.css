@@ -1,0 +1,128 @@
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-ext-wght-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+body {font-family:'Manrope',sans-serif;font-size:16px;line-height:1.6}
+.brand{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-2px}
+.brand span{font-family:inherit;font-size:12px;letter-spacing:.04em;line-height:1.35;font-weight:600}
+.nav{min-height:100px}
+.nav nav,.bag{font-size:15px}
+.bag span{font-family:inherit;font-size:14px;width:38px;height:38px}
+.eyebrow,.hero .eyebrow,.product-info .eyebrow,.modal .eyebrow{font-family:inherit;font-size:14px;font-weight:600;letter-spacing:.015em;line-height:1.5;margin-bottom:20px}
+.hero .eyebrow{color:#c6cec6;margin-bottom:35px}
+.hero h1{font-family:'Manrope',sans-serif;font-size:clamp(60px,6.3vw,110px);font-weight:800;letter-spacing:-.065em;line-height:1.04}
+.hero h1>span{font-size:1.1em}
+.hero p{font-size:18px;line-height:1.65;color:#c4cbc4}
+.hero .button,.button,.hero-bottom,.hero-bottom a{font-family:inherit;font-size:15px;font-weight:600;letter-spacing:0}
+.hero-specs{gap:40px;margin-top:34px}
+.hero-specs b{font-size:30px;line-height:1.25;letter-spacing:-.04em;font-weight:600}
+.hero-specs span{font-family:inherit;font-size:14px;letter-spacing:0;color:#bac4ba}
+.hero-piece figcaption{font-family:inherit;font-size:14px;line-height:1.4;font-weight:600;letter-spacing:0;padding:15px 14px}
+.hero-piece figcaption span:last-child{font-weight:400;color:#5c625b}
+.hero-bottom{font-size:14px;line-height:1.5;padding-block:24px}
+.hero-bottom>span{max-width:760px;color:#c4cbc4}
+.section-heading>p{font-family:inherit;font-size:16px;letter-spacing:0}
+.section h2{font-weight:700;letter-spacing:-.055em;line-height:1.2}
+.product-info h3{font-weight:700;font-size:38px;line-height:1.2;letter-spacing:-.045em}
+.description,.steps p,.faq-list p{font-size:16px;line-height:1.75}
+.price{font-weight:600;font-size:30px}.price span{font-size:16px}
+.choice-label{font-family:inherit;font-size:15px;font-weight:600;letter-spacing:0;align-items:center;gap:15px}
+.choice-label span,.choice-label a{font-size:14px;font-weight:500}
+.swatches button,.sizes button,.view-tabs button{font-family:inherit;font-size:15px;font-weight:600}
+.swatches button{min-height:50px}.sizes button{height:50px;min-width:55px}
+.quantity span{font-size:16px}.quantity button{font-size:19px}
+.caption{font-family:inherit;font-size:14px;line-height:1.4;letter-spacing:0;padding:10px 13px}
+.availability{font-family:inherit;font-size:14px;line-height:1.65;letter-spacing:0;color:#555d53;align-items:baseline}
+.dot{width:8px;height:8px;position:relative;top:-1px}
+.product-perks{font-size:14px;line-height:1.7;gap:12px 25px}
+.small{font-size:14px;line-height:1.65}
+.steps article>span{font-family:inherit;font-size:16px;font-weight:600;color:#676f63}
+.steps h3{font-size:25px;font-weight:700;letter-spacing:-.035em}
+.faq-list summary{font-size:17px;font-weight:600;line-height:1.6}
+.faq>div>a{font-family:inherit;font-size:16px;line-height:1.6}
+footer>span,footer>a:last-child{font-family:inherit;font-size:14px;line-height:1.6;letter-spacing:0}
+.modal p,.cart-items>div,.modal label,.campaign-form label{font-size:15px}
+.cart-items button{font-size:14px}.modal .check{font-size:14px;gap:10px}
+.check input{width:18px;height:18px;flex-shrink:0}
+.notice,.error{font-size:15px;line-height:1.65}.modal .button{font-size:15px}
+.admin-head>a:last-child,.admin main>p,.admin-panel>p,.stats span,.filters button,.firebase-auth-bar{font-family:inherit;font-size:14px}
+table{font-size:14px}td small{font-size:13px}
+@media(min-width:1600px){.hero h1{font-size:110px}}
+@media(max-width:1100px){.hero .button{min-width:0;font-size:15px}.hero h1{font-size:6.3vw}.hero-piece figcaption{font-size:14px;flex-direction:column;gap:4px}.hero-specs{gap:25px}.hero-specs b{font-size:25px}.product-info h3{font-size:32px}.product-visual{min-height:720px}}
+@media(max-width:700px){
+ .nav{height:92px;min-height:92px}.brand{font-size:37px}.brand span{font-size:11px;margin-top:9px}
+ .bag{font-size:15px;gap:10px}.bag span{width:35px;height:35px;font-size:14px}
+ .hero{padding-top:32px}.hero-copy{padding-bottom:25px}.hero .eyebrow{font-size:14px;margin-bottom:22px}
+ .hero h1{font-size:16vw;line-height:1.05;margin-bottom:24px}.hero h1>span{font-size:1.08em}
+ .hero p{font-size:17px;line-height:1.6;margin-bottom:24px}
+ .hero .button{font-size:15px;width:100%;justify-content:space-between;padding:18px 20px;min-height:58px}
+ .hero-specs{position:static;display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:27px;align-items:start}
+ .hero-specs>div{align-items:start;gap:5px}.hero-specs b{font-size:25px}.hero-specs span{font-size:14px}
+ .hero-visual{padding-top:14px;padding-bottom:28px}.hero-piece img{height:290px}
+ .hero-piece figcaption{font-size:14px;padding:12px 9px;flex-direction:column;gap:3px}
+ .hero-bottom{font-size:14px;display:block;padding:20px 0}.hero-bottom>span{max-width:none;display:block;font-weight:400}
+ .hero-bottom a{font-size:14px;display:inline-block;margin-top:14px}
+ .section{padding-top:48px;padding-bottom:48px}.eyebrow,.product-info .eyebrow{font-size:14px;margin-bottom:14px}
+ .section h2{font-size:34px;line-height:1.2}.section-heading>p{font-size:16px;margin-top:14px}
+ .product-visual{min-height:510px}.product-info h3{font-size:32px}
+ .price{font-size:29px}.description,.steps p,.faq-list p{font-size:16px}
+ .choice-label{font-size:15px}.swatches button,.sizes button,.view-tabs button{font-size:15px}
+ .sizes{gap:7px}.sizes button{min-width:0;flex:1}.buy-row{flex-wrap:wrap}.quantity{min-height:54px}
+ .buy-row .button{font-size:15px;padding:16px;gap:15px;min-width:190px}
+ .caption{font-size:14px;left:14px;bottom:14px;max-width:calc(100% - 28px)}
+ .availability{font-size:14px}.product-perks{font-size:14px;display:grid;gap:7px}
+ .small{font-size:14px}.steps article{grid-template-columns:32px 1fr;gap:0 16px}
+ .steps article>span{font-size:16px;padding-top:2px}.steps h3{font-size:23px;line-height:1.35}
+ .steps p{font-size:16px;margin-top:12px}.faq-list summary{font-size:17px}
+ .faq>div>a{font-size:16px}.faq-list p{font-size:16px}.faq-list details{padding:22px 0}
+ footer{align-items:flex-start}footer>span{display:block;flex-basis:100%;font-size:14px;order:3}footer>a:last-child{font-size:14px}
+ .modal h2{font-size:30px}.modal p,.cart-items>div,.modal label,.modal .button{font-size:15px}.modal .check{font-size:14px}
+ .admin-head>a:last-child,.admin main>p,.admin-panel>p,.stats span,.filters button{font-size:14px}
+}
+@media(max-width:380px){.hero-piece img{height:250px}.hero-specs{display:grid;margin-top:25px}.product-visual{min-height:460px}.buy-row .button{width:100%;min-width:0}.quantity{justify-content:space-between;width:100%}}
+
+/* Vásárlói Google-belépés és Fiók menü */
+.nav-actions{display:flex;align-items:center;gap:22px}
+.account-btn{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;min-height:40px;padding:0 2px}
+.account-btn i{font-style:normal;width:32px;height:32px;display:grid;place-items:center;background:#191d1c;color:#f0f0eb;font-size:14px;font-weight:700}
+.account-btn:hover,.bag:hover{color:var(--accent)}
+.login-box{border-top:1px solid #c5c8bd;padding-top:22px}.login-box .button{width:100%}
+.account-row{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:17px;font-size:15px}.account-row>span{display:flex;flex-direction:column;gap:8px;min-width:0}.account-row b{font-weight:600;overflow-wrap:anywhere}
+.account-row button,.text-button{font-size:15px;text-decoration:underline;text-underline-offset:4px;color:var(--muted);white-space:nowrap}
+.account-row button:hover,.text-button:hover{color:var(--ink)}
+.success-actions{display:flex;flex-direction:column;align-items:stretch;gap:16px;margin-top:8px}.success-actions .text-button{align-self:flex-start}
+dialog.account-panel{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(460px,100vw);max-width:100vw;padding:52px 36px 36px;border-top:0;border-left:5px solid #191d1c}
+.account-panel h2{margin-bottom:6px;overflow-wrap:anywhere}
+.account-panel .account-email{color:var(--muted);overflow-wrap:anywhere;margin-bottom:30px}
+.account-panel .google-login{width:100%;margin-top:6px}
+.account-panel .small-print{font-size:14px;color:var(--muted);margin-top:18px}
+.my-orders{border-top:2px solid #191d1c;padding-top:18px}
+.my-orders-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}.my-orders-head h3{font-size:20px;font-weight:600;letter-spacing:-.4px;margin:0}.my-orders-head span{font-size:14px;color:var(--muted)}
+.empty-orders{padding:12px 0 4px}.empty-orders .button{width:100%}
+.order-card{border-bottom:1px solid #d6d6cd;padding:16px 0}
+.order-top{display:flex;justify-content:space-between;gap:12px;font-size:15px}.order-top b{font-weight:600}
+.order-card ul{list-style:none;margin:8px 0 12px;padding:0;font-size:15px;line-height:1.6}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:14px;padding:4px 10px;border:1px solid #bfc3b8;color:var(--muted)}
+.chip.ok{border-color:#3d7851;color:#2f6140;background:#e4eee6}
+.order-card small{display:block;color:var(--muted);font-size:13px;overflow-wrap:anywhere;margin-top:10px}
+.account-info{margin:24px 0 18px;padding:16px;background:#e5e7de}.account-info p{font-size:14px;margin:0}.account-info p+p{margin-top:8px}.account-info a{text-decoration:underline}
+@media(max-width:700px){.nav-actions{gap:16px}.account-btn{font-size:15px;gap:8px}.account-btn i{width:30px;height:30px}dialog.account-panel{padding:48px 22px 28px;border-left:0;border-top:5px solid #191d1c}}
+
+/* Kosár ikon számjelzővel */
+.nav .bag{position:relative;width:46px;height:46px;display:grid;place-items:center;gap:0;padding:0}
+.nav .bag svg{width:28px;height:28px}
+.nav .bag .bag-count{position:absolute;top:1px;right:-2px;width:auto;min-width:20px;height:20px;padding:0 5px;border:0;border-radius:10px;background:#191d1c;color:#fff;font-family:inherit;font-size:12px;font-weight:700;line-height:20px;text-align:center;display:block}
+@media(max-width:700px){.nav .bag{width:42px;height:42px}.nav .bag svg{width:26px;height:26px}}
