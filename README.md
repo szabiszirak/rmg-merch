@@ -16,6 +16,6 @@ A Szegedi Radnóti Miklós Kísérleti Gimnázium fekete és fehér kapucnis pul
 
 A `main` ágra feltöltött minden módosítás után a GitHub Actions (`.github/workflows/publikalas.yml`) lefuttatja a buildet és a típusellenőrzést, majd publikál a Firebase Hostingra; ha a `firebase/firestore.rules` változott, a szabályokat is.
 
-Tartalék kézi publikálás Windows-on: `Oldal publikalasa.cmd` (bejelentkezett Firebase CLI kell hozzá).
+A Firestore-szabályokat a GitHub nem tudja publikálni (nincs rá jogosultsága); ezt a `Szabalyok feltoltese.cmd` végzi Windows-on, bejelentkezett Firebase CLI-vel.
 
 Helyi fejlesztés a `firebase/` mappából: `npm ci`, `npm run dev -- --port 5174`, `npm run build`, `npm run check`.
