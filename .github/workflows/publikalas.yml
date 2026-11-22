@@ -55,10 +55,16 @@ jobs:
           fi
 
       - name: Firestore-szabályok publikálása
+        id: rulesdeploy
         if: steps.rules.outputs.changed == 'true'
+        continue-on-error: true
         env:
           SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RMGMERCH_23073 }}
         run: |
           printf '%s' "$SA" > "$RUNNER_TEMP/sa.json"
           GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" npx --yes firebase-tools@14.26.0 deploy --only firestore:rules --project rmgmerch-23073 --non-interactive
           rm -f "$RUNNER_TEMP/sa.json"
+
+      - name: Figyelmeztetés, ha a szabályok nem mentek fel
+        if: steps.rulesdeploy.outcome == 'failure'
+        run: echo "::warning title=Firestore-szabályok::A weboldal felment, de a firestore.rules publikálásához nincs jogosultsága a GitHubnak. Futtasd a helyi 'Oldal publikalasa.cmd' fájlt."
