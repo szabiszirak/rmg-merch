@@ -1,4 +1,20 @@
 @font-face {
+  font-family: 'Alfa Slab One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/alfa-slab-one-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Alfa Slab One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/alfa-slab-one-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 200 800;
@@ -126,3 +142,12 @@ dialog.account-panel{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min
 .nav .bag svg{width:28px;height:28px}
 .nav .bag .bag-count{position:absolute;top:1px;right:-2px;width:auto;min-width:20px;height:20px;padding:0 5px;border:0;border-radius:10px;background:#191d1c;color:#fff;font-family:inherit;font-size:12px;font-weight:700;line-height:20px;text-align:center;display:block}
 @media(max-width:700px){.nav .bag{width:42px;height:42px}.nav .bag svg{width:26px;height:26px}}
+
+/* Címbetű: a pulóver hátoldali RMG-feliratához hasonló, vastag talpas betű */
+.brand,.hero h1,h2,.section h2,.modal h2,.admin h2,.product-info h3{font-family:'Alfa Slab One',Georgia,serif;font-weight:400;font-synthesis:none}
+.brand{letter-spacing:0}
+.brand span{font-family:'Manrope',sans-serif;font-weight:600}
+.hero h1{letter-spacing:-.01em;line-height:.98}
+.hero h1>span{font-size:1em}
+h2,.section h2,.modal h2,.admin h2,.product-info h3{letter-spacing:0;font-weight:400}
+.section h2{line-height:1.12}
