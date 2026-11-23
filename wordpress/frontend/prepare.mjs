@@ -1,0 +1,22 @@
+// A közös app/page.tsx és app/admin/view.tsx átalakítása a WordPress-változathoz.
+import fs from 'node:fs';
+const must=(s,a,b,all=false)=>{if(!s.includes(a))throw Error('Nem található: '+a.slice(0,80));return all?s.replaceAll(a,b):s.replace(a,b)};
+fs.mkdirSync('src',{recursive:true});
+let f=fs.readFileSync('../../app/page.tsx','utf8');
+f=must(f,"'use client';","'use client';\nimport {apiFetch,GoogleLogin,asset,PRICE,PRICE_TEXT} from './wp';");
+f=must(f,"fetch('/api/","apiFetch('/api/",true);
+f=must(f,"async function signin(){if(busy)return;W(true);E('');try{const r=await apiFetch('/api/session',{method:'POST'});","async function signin(credential:string){if(busy)return;W(true);E('');try{const r=await apiFetch('/api/session',{method:'POST',body:JSON.stringify({credential})});");
+f=f.replace(/<button className="button dark" disabled=\{busy\|\|user===undefined\} onClick=\{signin\}>[^<]*<span>↗<\/span><\/button>/,'<GoogleLogin disabled={busy||user===undefined} onCredential={signin}/>');
+f=f.replace(/<button className="button dark google-login"[^>]*onClick=\{signin\}>[^<]*<span>↗<\/span><\/button>/,'<GoogleLogin disabled={busy} onCredential={signin}/>');
+if(f.includes('onClick={signin}'))throw Error('Maradt régi belépőgomb.');
+f=f.replace(/src="\/([a-z0-9-]+\.png)"/g,"src={asset('$1')}").replace(/'\/([a-z0-9-]+\.png)'/g,"asset('$1')");
+f=must(f,'*10000','*PRICE',true);
+f=f.replace(/10 000/g,'{PRICE_TEXT}');
+fs.writeFileSync('src/storefront.tsx',f);
+let a=fs.readFileSync('../../app/admin/view.tsx','utf8');
+a=must(a,"'use client';","'use client';\nimport {apiFetch} from './wp';\nimport {downloadReport} from './report';");
+a=must(a,"fetch('/api/","apiFetch('/api/",true);
+a=must(a,'<a className="button dark" href="/api/report">Excel-kimutatás letöltése ↓</a>','<button className="button dark" onClick={()=>downloadReport().catch(e=>M(String(e)))}>Excel-kimutatás letöltése ↓</button>');
+fs.writeFileSync('src/admin.tsx',a);
+fs.writeFileSync('src/report.ts',fs.readFileSync('../../firebase/src/report.ts','utf8').replace("from './api'","from './wp'"));
+for(const c of ['merch.css','redesign.css','typography.css'])fs.writeFileSync('src/'+c,fs.readFileSync('../../app/'+c,'utf8').replaceAll("url('/fonts/","url('../fonts/"));

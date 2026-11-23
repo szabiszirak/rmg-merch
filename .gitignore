@@ -11,3 +11,11 @@ firebase/src/admin.tsx
 firebase/src/merch.css
 firebase/src/redesign.css
 firebase/src/typography.css
+wordpress/frontend/node_modules
+wordpress/frontend/src/storefront.tsx
+wordpress/frontend/src/admin.tsx
+wordpress/frontend/src/report.ts
+wordpress/frontend/src/merch.css
+wordpress/frontend/src/redesign.css
+wordpress/frontend/src/typography.css
+wordpress/plugin/rmg-merch/assets/app/

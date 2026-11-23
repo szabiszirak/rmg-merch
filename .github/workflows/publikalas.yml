@@ -1,4 +1,4 @@
-name: Publikálás Firebase-re
+name: Publikálás
 
 on:
   push:
@@ -15,8 +15,6 @@ jobs:
     defaults:
       run:
         working-directory: firebase
-    env:
-      FTP_SERVER: ${{ secrets.FTP_SERVER }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -36,17 +34,6 @@ jobs:
 
       - name: Típusellenőrzés
         run: npm run check
-
-      - name: Feltöltés az ATW tárhelyre (rmgmerch.hu)
-        if: env.FTP_SERVER != ''
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
-          local-dir: ./firebase/dist/
-          server-dir: ${{ secrets.FTP_DIR || './' }}
 
       - name: Firebase Hosting publikálása
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -81,3 +68,57 @@ jobs:
       - name: Figyelmeztetés, ha a szabályok nem mentek fel
         if: steps.rulesdeploy.outcome == 'failure'
         run: echo "::warning title=Firestore-szabályok::A weboldal felment, de a firestore.rules publikálásához nincs jogosultsága a GitHubnak. Futtasd a helyi 'Oldal publikalasa.cmd' fájlt."
+
+  wordpress:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      WP_ROOT: ${{ secrets.FTP_WP_ROOT }}
+    defaults:
+      run:
+        working-directory: wordpress/frontend
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: wordpress/frontend/package-lock.json
+
+      - name: Függőségek telepítése
+        run: npm ci
+
+      - name: Típusellenőrzés
+        run: npm run check
+
+      - name: WordPress-felület buildelése
+        run: npm run build
+
+      - name: PHP szintaxis-ellenőrzés
+        working-directory: wordpress
+        run: find plugin theme -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Bővítmény feltöltése (wp-content/plugins/rmg-merch)
+        if: env.FTP_SERVER != '' && env.WP_ROOT != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./wordpress/plugin/rmg-merch/
+          server-dir: ${{ secrets.FTP_WP_ROOT }}wp-content/plugins/rmg-merch/
+          state-name: .rmg-plugin-sync.json
+
+      - name: Sablon feltöltése (wp-content/themes/rmg-merch)
+        if: env.FTP_SERVER != '' && env.WP_ROOT != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./wordpress/theme/rmg-merch/
+          server-dir: ${{ secrets.FTP_WP_ROOT }}wp-content/themes/rmg-merch/
+          state-name: .rmg-theme-sync.json

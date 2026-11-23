@@ -1,0 +1,5 @@
+/* WordPress-változat kiegészítései */
+.google-login{display:flex;flex-direction:column;gap:10px;margin:8px 0 4px;min-height:44px}
+.google-login-button{width:100%;max-width:400px;min-height:44px}
+.google-login.is-busy{opacity:.5;pointer-events:none}
+.firebase-auth-bar a{color:inherit;text-decoration:underline;margin-left:auto;margin-right:16px}
