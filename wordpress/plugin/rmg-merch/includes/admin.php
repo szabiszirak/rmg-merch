@@ -59,7 +59,7 @@ function rmg_settings_page() {
 	<table class="form-table">
 	<tr><th><label for="rmg_google_client_id">Google OAuth kliensazonosító</label></th><td>
 	<input class="regular-text code" id="rmg_google_client_id" name="rmg_google_client_id" value="<?php echo esc_attr((string) get_option('rmg_google_client_id', '')); ?>" <?php disabled($const); ?>>
-	<p class="description">„Webes alkalmazás” típusú kliens a Google Cloud Console-ban, engedélyezett JavaScript-forrás: <code><?php echo esc_html(untrailingslashit(home_url())); ?></code>. Titkos kulcs nem kell.<?php if ($const) echo ' A wp-config.php-ban beállított érték van használatban.'; ?></p></td></tr>
+	<p class="description">„Webes alkalmazás” típusú kliens a Google Cloud Console-ban, engedélyezett JavaScript-forrás: <code><?php $u = wp_parse_url(home_url()); echo esc_html($u['scheme'] . '://' . $u['host'] . (isset($u['port']) ? ':' . $u['port'] : '')); ?></code>. Titkos kulcs nem kell.<?php if ($const) echo ' A wp-config.php-ban beállított érték van használatban.'; ?></p></td></tr>
 	<tr><th><label for="rmg_contact_email">Kapcsolati e-mail</label></th><td><input class="regular-text" type="email" id="rmg_contact_email" name="rmg_contact_email" value="<?php echo esc_attr(rmg_contact_email()); ?>"></td></tr>
 	<tr><th>Pulóver és ár</th><td><?php if ($pid): ?><a class="button" href="<?php echo esc_url(get_edit_post_link($pid)); ?>">Termék szerkesztése (most: <?php echo esc_html(number_format(rmg_price(), 0, ',', ' ')); ?> Ft)</a><p class="description">Az árat a termék változatainál lehet átírni; az oldal automatikusan átveszi.</p><?php else: ?>A termék a WooCommerce aktiválása után automatikusan létrejön.<?php endif; ?></td></tr>
 	</table><?php submit_button('Mentés'); ?></form>
