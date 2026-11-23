@@ -33,6 +33,7 @@ add_action('rest_api_init', function () {
 			return ['ok' => true];
 		}), 'permission_callback' => $admin],
 	]);
+	register_rest_route($ns, '/accounts', ['methods' => 'GET', 'callback' => rmg_rest(fn() => rmg_accounts()), 'permission_callback' => $admin]);
 });
 
 /** Hibakezelő burkoló: RMG_Error → JSON {code, message}, megfelelő státusszal. */
@@ -78,4 +79,29 @@ function rmg_rest_save_campaign(WP_REST_Request $r): array {
 	if (mb_strlen($pickup) > 500) throw new RMG_Error('Az átvételi tájékoztató legfeljebb 500 karakter lehet.');
 	update_option('rmg_campaign', ['start' => $start, 'end' => $end, 'pickup' => $pickup], false);
 	return ['ok' => true];
+}
+
+/** A Google-lel regisztrált fiókok listája a szervezői Excel-exporthoz, rendelésszámmal. */
+function rmg_accounts(): array {
+	$stats = [];
+	$orders = wc_get_orders(['limit' => -1, 'type' => 'shop_order', 'status' => array_keys(wc_get_order_statuses())]);
+	foreach ($orders as $o) {
+		if (!$o instanceof WC_Order || $o->get_status() === 'trash' || !($cid = $o->get_customer_id())) continue;
+		$stats[$cid] ??= ['orders' => 0, 'pieces' => 0];
+		$stats[$cid]['orders']++;
+		$stats[$cid]['pieces'] += (int) $o->get_item_count();
+	}
+	$users = get_users(['meta_key' => 'rmg_google_sub', 'meta_compare' => 'EXISTS', 'orderby' => 'registered', 'order' => 'DESC', 'fields' => ['ID', 'user_email', 'user_registered']]);
+	return array_map(function ($u) use ($stats) {
+		$p = rmg_profile((int) $u->ID);
+		$s = $stats[(int) $u->ID] ?? ['orders' => 0, 'pieces' => 0];
+		return [
+			'name' => $p['name'],
+			'email' => (string) $u->user_email,
+			'schoolClass' => $p['schoolClass'],
+			'registeredAt' => gmdate('Y-m-d\\TH:i:s.000\\Z', strtotime($u->user_registered . ' UTC')),
+			'orders' => $s['orders'],
+			'pieces' => $s['pieces'],
+		];
+	}, $users);
 }
