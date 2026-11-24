@@ -28,6 +28,11 @@ function rmg_user_from_google(array $g): WP_User {
 		update_user_meta($id, 'rmg_google_sub', $sub);
 		$user = get_user_by('id', $id);
 	}
+	// A szervezői Google-fiók szervezői jogot kap (adminisztrátort nem fokoz le).
+	if (rmg_is_organizer_email($email) && !user_can($user, 'manage_woocommerce') && get_role('shop_manager')) {
+		$user->set_role('shop_manager');
+		$user = get_user_by('id', $user->ID);
+	}
 	if (!empty($g['name']) && !get_user_meta($user->ID, 'rmg_name', true)) update_user_meta($user->ID, 'rmg_google_name', sanitize_text_field($g['name']));
 	return $user;
 }

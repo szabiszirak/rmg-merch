@@ -13,6 +13,13 @@ function rmg_google_client_id(): string {
 	return (string) get_option('rmg_google_client_id', '');
 }
 
+/** Szervezői Google-fiókok: Google-belépéskor automatikusan szervezői (shop_manager) jogot kapnak. */
+const RMG_ORGANIZER_EMAILS = ['radnotimerch@gmail.com'];
+
+function rmg_is_organizer_email(string $email): bool {
+	return in_array(strtolower(trim($email)), array_map('strtolower', RMG_ORGANIZER_EMAILS), true);
+}
+
 function rmg_contact_email(): string {
 	$e = (string) get_option('rmg_contact_email', 'radnotimerch@gmail.com');
 	return is_email($e) ? $e : 'radnotimerch@gmail.com';
