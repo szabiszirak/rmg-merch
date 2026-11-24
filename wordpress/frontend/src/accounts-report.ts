@@ -11,5 +11,5 @@ export async function downloadAccounts(){
  downloadXlsx('RMG-fiokok.xlsx',[
   {name:'Fiókok',rows:[['Név','E-mail','Osztály','Regisztráció ideje','Rendelések','Rendelt pulóver (db)'],...list.map(a=>[a.name,a.email,cls(a),localTime(a.registeredAt),a.orders,a.pieces])]},
   {name:'Osztályok',rows:[['Osztály','Fiók','Rendelt már','Még nem rendelt'],...classes.map(cl=>{const g=list.filter(a=>cls(a)===cl);const o=g.filter(a=>a.orders>0).length;return [cl,g.length,o,g.length-o]})]},
- ]);
+ ],{top:['RMG Merch – regisztrált fiókok','Letöltve: '+localTime(new Date().toISOString())+' (budapesti idő)']});
 }

@@ -15,5 +15,5 @@ export async function downloadReport(){
    ...list.flatMap(o=>JSON.parse(o.items).map((i:any)=>[o.id,o.name,o.email,o.schoolClass,i.color,i.size,i.qty,i.qty*PRICE,o.paid?'Igen':'Nem',o.collected?'Igen':'Nem',localTime(o.createdAt)]))]},
   {name:'Osztályok',rows:[['Osztály','Szín',...sizes,'Összesen'],...classes.flatMap(cl=>colors.map(c=>[cl,c,...sizes.map(s=>sum(c,s,cl)),sizes.reduce((n,s)=>n+sum(c,s,cl),0)]))]},
   {name:'Gyártás',rows:[['Szín',...sizes,'Összesen'],...colors.map(c=>[c,...sizes.map(s=>sum(c,s)),sizes.reduce((n,s)=>n+sum(c,s),0)]),['Összesen',...sizes.map(s=>colors.reduce((n,c)=>n+sum(c,s),0)),items.reduce((n,i)=>n+i.qty,0)]]},
- ]);
+ ],{top:['RMG Merch – rendelések','Letöltve: '+localTime(new Date().toISOString())+' (budapesti idő)']});
 }
