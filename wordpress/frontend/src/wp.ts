@@ -21,7 +21,7 @@ export async function apiFetch(path:string,init:RequestInit={}):Promise<Response
  const text=await r.text();let data:any=null;try{data=text?JSON.parse(text):null}catch{}
  if(!r.ok)return new Response(data?.message||'Hiba történt. Próbáld újra.',{status:r.status});
  if(path==='/api/session'&&data&&'nonce' in data){nonce=data.nonce||'';return Response.json(data.user)}
- return new Response(text,{status:r.status,headers:{'Content-Type':'application/json'}});
+ return new Response(text||'null',{status:r.status,headers:{'Content-Type':'application/json'}});
 }
 
 let gsi:Promise<any>|undefined;let handler:(c:string)=>void=()=>{};let initialized=false;

@@ -8,6 +8,7 @@
   "check": "npm run prepare:source && tsc --noEmit"
  },
  "dependencies": {
+  "fflate": "^0.8.2",
   "react": "19.2.6",
   "react-dom": "19.2.6"
  },
