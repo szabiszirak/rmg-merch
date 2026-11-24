@@ -47,3 +47,18 @@ add_action('admin_init', function () {
 	rmg_product_id();
 	update_option('rmg_setup_done', 1);
 });
+
+/**
+ * Mindig https: a Google-belépés csak a https://rmgmerch.hu eredetről engedélyezett,
+ * a http:// címen origin_mismatch hibát adna. A böngésző pontosan tudja, milyen címen van,
+ * ezért a fejléc legelején átirányít (proxy mögött is biztonságos, nem okoz körbeirányítást).
+ */
+add_action('wp_head', function () {
+	if (wp_parse_url(home_url(), PHP_URL_SCHEME) !== 'https') return;
+	echo "<script>if(location.protocol==='http:')location.replace('https:'+location.href.slice(5));</script>\n";
+}, 0);
+
+/** Diagnosztika: a szerver https-nek látja-e a kérést (a szerveroldali átirányítás előkészítéséhez). */
+add_action('send_headers', function () {
+	header('X-RMG-Https: ' . (is_ssl() ? '1' : '0') . ';' . ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '-') . ';' . ($_SERVER['SERVER_PORT'] ?? '-'));
+});
