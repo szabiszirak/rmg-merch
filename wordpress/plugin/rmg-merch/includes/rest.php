@@ -33,6 +33,13 @@ add_action('rest_api_init', function () {
 			return ['ok' => true];
 		}), 'permission_callback' => $admin],
 	]);
+	register_rest_route($ns, '/class-reset', [
+		['methods' => 'GET', 'callback' => rmg_rest(fn() => rmg_class_status()), 'permission_callback' => $admin],
+		['methods' => 'POST', 'callback' => rmg_rest(function (WP_REST_Request $r) {
+			if ($r['confirm'] !== true) throw new RMG_Error('A törlést meg kell erősíteni.');
+			return rmg_reset_classes();
+		}), 'permission_callback' => $admin],
+	]);
 	register_rest_route($ns, '/accounts', ['methods' => 'GET', 'callback' => rmg_rest(fn() => rmg_accounts()), 'permission_callback' => $admin]);
 });
 

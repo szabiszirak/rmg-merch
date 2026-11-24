@@ -85,3 +85,26 @@ function rmg_split_name(string $name): array {
 /** Profil oszlop a WP felhasználólistában. */
 add_filter('manage_users_columns', function ($c) { $c['rmg_class'] = 'Osztály'; return $c; });
 add_filter('manage_users_custom_column', function ($v, $col, $uid) { return $col === 'rmg_class' ? esc_html((string) get_user_meta($uid, 'rmg_class', true)) : $v; }, 10, 3);
+
+/** Hány fióknak van mentett osztálya, és mikor törölték utoljára az osztályokat. */
+function rmg_class_status(): array {
+	global $wpdb;
+	$n = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->usermeta} WHERE meta_key = %s AND meta_value <> ''", 'rmg_class'));
+	$last = get_option('rmg_class_reset');
+	return [
+		'withClass' => $n,
+		'lastReset' => is_array($last) && !empty($last['at']) ? gmdate('Y-m-d\\TH:i:s.000\\Z', (int) $last['at']) : null,
+		'lastCleared' => is_array($last) ? (int) ($last['count'] ?? 0) : 0,
+	];
+}
+
+/**
+ * Tanévváltás: minden fiók mentett osztályát törli, így belépéskor és rendelés előtt
+ * mindenkinek újra ki kell választania. A már leadott rendelések osztálya nem változik.
+ */
+function rmg_reset_classes(): array {
+	$before = rmg_class_status()['withClass'];
+	delete_metadata('user', 0, 'rmg_class', '', true);
+	update_option('rmg_class_reset', ['at' => time(), 'count' => $before, 'by' => get_current_user_id()], false);
+	return ['cleared' => $before] + rmg_class_status();
+}

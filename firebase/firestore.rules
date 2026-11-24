@@ -6,7 +6,7 @@ service cloud.firestore {
   function totalQty(q) {return q.bS+q.bM+q.bL+q.bXL+q.bXXL+q.wS+q.wM+q.wL+q.wXL+q.wXXL;}
   function validQ(q) {return q is map && q.keys().hasAll(['bS','bM','bL','bXL','bXXL','wS','wM','wL','wXL','wXXL']) && q.keys().hasOnly(['bS','bM','bL','bXL','bXXL','wS','wM','wL','wXL','wXXL']) && validQty(q,'bS') && validQty(q,'bM') && validQty(q,'bL') && validQty(q,'bXL') && validQty(q,'bXXL') && validQty(q,'wS') && validQty(q,'wM') && validQty(q,'wL') && validQty(q,'wXL') && validQty(q,'wXXL') && totalQty(q)>0 && totalQty(q)<=50;}
   function buyer() {return request.auth != null && request.auth.token.firebase.sign_in_provider == 'google.com' && request.auth.token.email_verified == true && request.auth.token.email is string;}
-  function validClass(c) {return c in ['7M', '8M', '9M', '10M', '11M', '12M', '9T', '10T', '11T', '12T', '9A', '10A', '11A', '12A', '9B', '10B', '11B', '12B', '9C', '10C', '11C', '12C', '9D', '10D', '11D', '12D', '9AJTP', 'Tanár', 'Külső'];}
+  function validClass(c) {return c in ['7M', '8M', '9M', '10M', '11M', '12M', '9T', '10T', '11T', '12T', '9A', '10A', '11A', '12A', '9B', '10B', '11B', '12B', '9C', '10C', '11C', '12C', '9D', '10D', '11D', '12D', '9AJTP', 'Tanár', 'Öregdiák', 'Külső'];}
   function open() {let c=get(/databases/$(database)/documents/config/campaign).data;return request.time >= c.startAt && request.time < c.endAt;}
   match /config/campaign {
    allow read: if true;

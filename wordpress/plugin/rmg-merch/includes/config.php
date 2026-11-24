@@ -1,7 +1,7 @@
 <?php
 defined('ABSPATH') || exit;
 
-const RMG_CLASSES = ['7M','8M','9M','10M','11M','12M','9T','10T','11T','12T','9A','10A','11A','12A','9B','10B','11B','12B','9C','10C','11C','12C','9D','10D','11D','12D','9AJTP','Tanár','Külső'];
+const RMG_CLASSES = ['7M','8M','9M','10M','11M','12M','9T','10T','11T','12T','9A','10A','11A','12A','9B','10B','11B','12B','9C','10C','11C','12C','9D','10D','11D','12D','9AJTP','Tanár','Öregdiák','Külső'];
 const RMG_COLORS = ['Fekete','Fehér'];
 const RMG_SIZES = ['S','M','L','XL','XXL'];
 const RMG_MAX_PER_LINE = 20;

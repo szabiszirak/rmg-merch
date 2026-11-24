@@ -171,3 +171,9 @@ h2,.section h2,.modal h2,.admin h2,.product-info h3{letter-spacing:0;font-weight
 .order-who div{display:flex;flex-direction:column;gap:2px;min-width:0}.order-who span{font-size:13px;color:var(--muted)}.order-who b{font-size:15px;font-weight:600;overflow-wrap:anywhere}
 .order-who div:nth-child(3){grid-column:1/-1}
 .order-who .text-button{grid-column:1/-1;justify-self:start;font-size:14px;padding:0}
+.class-reset-status{color:var(--ink)!important}
+.class-reset-confirm{border:1px solid #ab3444;background:#f6eaea;padding:18px 20px;margin-top:6px}
+.class-reset-confirm p{margin:0 0 14px;font-size:14px}
+.class-reset-confirm>div{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.button.danger{background:#ab3444;color:#fff;justify-content:center}
+.button.danger:hover{background:#8f2a38}
