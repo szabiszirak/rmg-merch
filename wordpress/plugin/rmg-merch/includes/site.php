@@ -58,7 +58,9 @@ add_action('wp_head', function () {
 	echo "<script>if(location.protocol==='http:')location.replace('https:'+location.href.slice(5));</script>\n";
 }, 0);
 
-/** Diagnosztika: a szerver https-nek látja-e a kérést (a szerveroldali átirányítás előkészítéséhez). */
-add_action('send_headers', function () {
-	header('X-RMG-Https: ' . (is_ssl() ? '1' : '0') . ';' . ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '-') . ';' . ($_SERVER['SERVER_PORT'] ?? '-'));
-});
+/** Szerveroldali 301 a https-es címre (keresőknek és JavaScript nélküli böngészőknek is). */
+add_action('template_redirect', function () {
+	if (is_ssl() || wp_parse_url(home_url(), PHP_URL_SCHEME) !== 'https' || (defined('WP_CLI') && WP_CLI)) return;
+	wp_redirect('https://' . wp_parse_url(home_url(), PHP_URL_HOST) . ($_SERVER['REQUEST_URI'] ?? '/'), 301);
+	exit;
+}, 0);
